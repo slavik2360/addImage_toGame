@@ -3,7 +3,6 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class Company(models.Model):
     """Game company."""
 
@@ -41,11 +40,11 @@ class Genre(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
 
 
 class Game(models.Model):
     """Game from steam."""
-
     name = models.CharField(
         verbose_name='имя',
         max_length=250,
@@ -75,7 +74,12 @@ class Game(models.Model):
         upload_to='games/',
         default='games/unknown.png'
     )
-
+    image = models.ManyToManyField(
+        verbose_name='изображение',
+        to='games.Image',
+        related_name='more_images'
+    )
+    
     class Meta:
         ordering = ('price', 'name')
         verbose_name = 'игра'
@@ -83,6 +87,9 @@ class Game(models.Model):
 
     def __str__(self) -> str:
         return f'{self.company} | {self.name} | {self.price}$'
+    
+
+
 
 
 class Comment(models.Model):

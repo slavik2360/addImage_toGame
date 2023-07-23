@@ -85,7 +85,6 @@
 <div class="nk-gap-1"></div>
 <!-- END: Breadcrumbs -->
 
-        
 
         
 <div class="container">
@@ -102,31 +101,16 @@
                                     <img src="{{ igor.main_imgor.url }}" alt="">
                                 </a>
                             </div>
-
                             <div class="nk-gap-1"></div>
                             <div class="row vertical-gap sm-gap">
                                 <div class="col-6 col-md-4">
                                     <div class="nk-gallery-item-box">
-                                        <a href="/static/images/product-7.jpg" class="nk-gallery-item" data-size="622x942">
+                                        {% for image in igor.images.all %}
+                                        <a href="{{ image.image.url }}" class="nk-gallery-item" data-size="622x942">
                                             <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="/static/images/product-7-square.jpg" alt="">
+                                            <img src="{{ image.image.url }}" alt="">
                                         </a>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4">
-                                    <div class="nk-gallery-item-box">
-                                        <a href="/static/images/product-8.jpg" class="nk-gallery-item" data-size="1920x907">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="/static/images/product-8-square.jpg" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4">
-                                    <div class="nk-gallery-item-box">
-                                        <a href="/static/images/product-9.jpg" class="nk-gallery-item" data-size="1500x750">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="/static/images/product-9-square.jpg" alt="">
-                                        </a>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -351,8 +335,39 @@
 </div>
 <div class="nk-gap-2"></div>
 
+<!-- <div>{{ igor.image.all }}</div>
 
+    {% for img in igor.image.all %}
+    <img src="{{ img.image.url }}" alt="Image">
+    {% endfor %} -->
+
+<!-- 
+{% block content %}
+  <div class="game-details">
+    <h1>{{ igor.name }}</h1>
+    <p>Цена: {{ igor.price }}$</p>
+    <p>Дата создания: {{ igor.datetime_created }}</p>
+    <p>Компания: {{ igor.company.name }}</p>
+    <p>Жанры: {% for genre in igor.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    <img src="{{ igor.main_imgor.url }}" alt="Main Image"> -->
+
+    <!-- Loop through additional images -->
+    <!-- <div class="additional-images">
+      {% for image in igor.images.all %}
+        <img src="{{ image.image.url }}" alt="Additional Image">
+      {% endfor %}
+    </div>
+  </div> -->
+<!-- {% endblock %} -->
+
+<!-- <div class="additional-images">
+    {% for image in igor.images.all %}
+      <img src="{{ image.image.url }}" alt="Additional Image">
+    {% endfor %}
+  </div> -->
         
+
+
             <!-- START: Footer -->
 <footer class="nk-footer">
 

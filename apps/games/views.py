@@ -12,6 +12,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Local
 from .models import Game, Genre, Company
+from .image import Image
 
 
 class MainView(View):
@@ -39,11 +40,10 @@ class GameListView(View):
                 'genres': genres
             }
         )
-    
+
     def post(self, request: HttpRequest) -> HttpResponse:
         data: dict = request.POST
         files: dict = request.FILES
-
         image: InMemoryUploadedFile = None
         if files != {}:
             image = files.get('main_imgor')
@@ -64,11 +64,9 @@ class GameListView(View):
             name=data.get('name'),
             price=float(data.get('price')),
             datetime_created=data.get('datetime_created'),
-            company=company,
-            main_imgor=image
+            company=company
         )
 
-        key: str
         for key in data:
             if 'genre_' in key:
                 genre: Genre = Genre.objects.get(
@@ -76,14 +74,19 @@ class GameListView(View):
                 )
                 game.genres.add(genre)
 
-        game.save()
+        for image_file in files.getlist('main_imgor'):
+            print(image_file)
+            image = Image.objects.create(game=game, image=image_file)
+            image.save()
+
         return HttpResponse("Hello")
+
 
 class GameView(View):
 
     def get(self, request: HttpRequest, game_id: int) -> HttpResponse:
         try:
-            game: Game = Game.objects.get(id=game_id)
+            games: Game = Game.objects.get(pk=game_id)
         except Game.DoesNotExist as e:
             return HttpResponse(
                 f'<h1>Игры с id {game_id} не существует!</h1>'
@@ -92,7 +95,7 @@ class GameView(View):
             request=request,
             template_name='games/store-product.html',
             context={
-                'igor': game 
+                'igor': games
             }
         )
     

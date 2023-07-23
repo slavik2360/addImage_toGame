@@ -4,6 +4,7 @@ from typing import Union , TypeAlias
 # Register your models here.
 
 from .models import Game, Genre, Company, Comment , WishList , Order , InviteCard
+from .image import Image
 
 MyType: TypeAlias = tuple[tuple[Union[str ,dict[str,list[str]]]]]
 
@@ -27,7 +28,8 @@ class GameAdmin(admin.ModelAdmin):
                     'name',
                     'price',
                     'genres',
-                    'main_imgor'
+                    'main_imgor',
+                    'image',
                 ]
             }
         ),
@@ -103,6 +105,7 @@ class InviteCardAdmin(admin.ModelAdmin):
         'owner',
     )   
 
+admin.site.register(Image)
 admin.site.register(Game , GameAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Genre , GenresAdmin)
