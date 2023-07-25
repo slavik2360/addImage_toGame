@@ -76,7 +76,7 @@ class Game(models.Model):
     )
     image = models.ManyToManyField(
         verbose_name='изображение',
-        to='games.Image',
+        to='GameImage',
         related_name='more_images'
     )
     
@@ -90,6 +90,18 @@ class Game(models.Model):
     
 
 
+class GameImage(models.Model):
+
+    game = models.ForeignKey(
+        to=Game,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(
+        verbose_name='изображение',
+        upload_to='games/',
+        default='games/unknown.png'
+    )
 
 
 class Comment(models.Model):

@@ -11,8 +11,7 @@ from django.views.generic import View
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Local
-from .models import Game, Genre, Company
-from .image import Image
+from .models import Game, Genre, Company, GameImage
 
 
 class MainView(View):
@@ -76,7 +75,7 @@ class GameListView(View):
 
         for image_file in files.getlist('main_imgor'):
             print(image_file)
-            image = Image.objects.create(game=game, image=image_file)
+            image = GameImage.objects.create(game=game, image=image_file)
             image.save()
 
         return HttpResponse("Hello")
