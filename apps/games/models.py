@@ -103,6 +103,14 @@ class GameImage(models.Model):
         default='games/unknown.png'
     )
 
+    class Meta:
+        ordering = ('game',)
+        verbose_name = 'изображение'
+        verbose_name_plural = 'изображения'
+
+    def __str__(self) -> str:
+        return self.game.name
+
 
 class Comment(models.Model):
 
